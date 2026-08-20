@@ -1,0 +1,6 @@
+{
+  "extends": "@rural-opd/config/tsconfig/library.json",
+  "compilerOptions": { "noEmit": true },
+  "include": ["src/**/*.ts", "eslint.config.js"],
+  "exclude": ["node_modules", "dist"]
+}

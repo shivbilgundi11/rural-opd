@@ -1,0 +1,9 @@
+-- Local seed data.
+--
+-- Module 1 has no schema, so this file is intentionally empty of DML. Module 2
+-- adds the demo hospital, doctor and OPD session that Modules 5-12 develop
+-- against. Keeping the file present now means `supabase db reset` already runs
+-- it and nobody has to remember to wire it up later.
+--
+-- Rule: seed data is for local and staging only. Production is seeded through
+-- the staff admin UI (Module 5), never by this file.

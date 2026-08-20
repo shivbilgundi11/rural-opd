@@ -1,0 +1,21 @@
+{
+  "extends": "@rural-opd/config/tsconfig/react-native.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@rural-opd/shared": ["../../packages/shared/src/index.ts"],
+      "@rural-opd/shared/*": ["../../packages/shared/src/*"],
+      "@rural-opd/tokens": ["../../packages/tokens/src/index.ts"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "app",
+    "src",
+    "app.config.ts",
+    "eslint.config.mjs",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ],
+  "exclude": ["node_modules", "dist", "android", "ios"]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@rural-opd/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:lan": "vite --host",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"@rural-opd/web has no tests until Module 5\""
+  },
+  "dependencies": {
+    "@rural-opd/shared": "workspace:*",
+    "@rural-opd/tokens": "workspace:*",
+    "@supabase/supabase-js": "^2.112.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2"
+  },
+  "devDependencies": {
+    "@rural-opd/config": "workspace:*",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.1.0",
+    "eslint": "^9.39.5",
+    "typescript": "5.9.3",
+    "vite": "^8.2.2"
+  }
+}

@@ -1,0 +1,38 @@
+# Windows is the primary dev machine here. The Supabase CLI and Deno both choke
+# on CRLF in ways that surface as unrelated-looking parse errors, so line
+# endings are normalised in the repo and checked out as LF everywhere.
+* text=auto eol=lf
+
+*.sql   text eol=lf
+*.sh    text eol=lf
+*.ts    text eol=lf
+*.tsx   text eol=lf
+*.js    text eol=lf
+*.mjs   text eol=lf
+*.cjs   text eol=lf
+*.json  text eol=lf
+*.jsonc text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+*.md    text eol=lf
+*.toml  text eol=lf
+
+# Windows-only helpers keep CRLF or they will not run.
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.ttf  binary
+*.otf  binary
+*.woff binary
+*.woff2 binary
+*.keystore binary
+*.jks binary
+
+pnpm-lock.yaml -diff linguist-generated=true
+packages/shared/src/db.types.ts linguist-generated=true

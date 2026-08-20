@@ -1,0 +1,15 @@
+{
+  "extends": "@rural-opd/config/tsconfig/react-dom.json",
+  "compilerOptions": {
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "@rural-opd/shared": ["../../packages/shared/src/index.ts"],
+      "@rural-opd/shared/*": ["../../packages/shared/src/*"],
+      "@rural-opd/tokens": ["../../packages/tokens/src/index.ts"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "vite.config.ts", "eslint.config.js"],
+  "exclude": ["node_modules", "dist"]
+}

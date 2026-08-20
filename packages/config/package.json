@@ -1,0 +1,43 @@
+{
+  "name": "@rural-opd/config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./eslint/base": "./eslint/base.js",
+    "./eslint/react": "./eslint/react.js",
+    "./eslint/native": "./eslint/native.js",
+    "./eslint/node": "./eslint/node.js",
+    "./tsconfig/base.json": "./tsconfig/base.json",
+    "./tsconfig/library.json": "./tsconfig/library.json",
+    "./tsconfig/react-dom.json": "./tsconfig/react-dom.json",
+    "./tsconfig/react-native.json": "./tsconfig/react-native.json"
+  },
+  "files": [
+    "eslint",
+    "tsconfig"
+  ],
+  "scripts": {
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "echo \"@rural-opd/config has no TypeScript sources\"",
+    "test": "echo \"@rural-opd/config has no tests\"",
+    "build": "echo \"@rural-opd/config needs no build\""
+  },
+  "dependencies": {
+    "@eslint/js": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-native": "^5.0.0",
+    "globals": "^17.11.0",
+    "typescript-eslint": "^8.67.0"
+  },
+  "peerDependencies": {
+    "eslint": "^9.39.5"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.5"
+  }
+}

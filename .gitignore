@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build output
+dist/
+build/
+.turbo/
+*.tsbuildinfo
+
+# env — real secrets never enter the repo, only .env.example does
+.env
+.env.*
+!.env.example
+
+# expo / eas
+.expo/
+.expo-shared/
+apps/mobile/android/
+apps/mobile/ios/
+dist-web/
+*.apk
+*.aab
+*.ipa
+
+# supabase local stack
+supabase/.branches/
+supabase/.temp/
+supabase/.env
+
+# tooling caches
+coverage/
+.eslintcache
+.vite/
+.vitest/
+
+# editors / os
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.DS_Store
+Thumbs.db

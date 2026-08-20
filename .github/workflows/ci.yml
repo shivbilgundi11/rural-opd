@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TURBO_TELEMETRY_DISABLED: 1
+
+jobs:
+  verify:
+    name: Lint, typecheck, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+      # Runs after build, on the artifacts a client would actually receive.
+      # TA §7 — a failure here is a release blocker, not a warning.
+      - name: Secret scan
+        run: node scripts/scan-secrets.mjs --verbose
+
+  # ---------------------------------------------------------------------------
+  # Slots below are deliberately visible and disabled. Each names the module
+  # that switches it on, so that module adds a line rather than a pipeline.
+  # ---------------------------------------------------------------------------
+
+  db-tests:
+    name: Database & RLS (pgTAP)
+    runs-on: ubuntu-latest
+    if: false # → enabled by Module 3 (RLS, roles & security test harness)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+      - name: Start local stack
+        run: supabase start
+      - name: Run pgTAP suite
+        run: supabase test db
+
+  edge-tests:
+    name: Edge Functions (Deno)
+    runs-on: ubuntu-latest
+    if: false # → enabled by Module 9 (payment order & checkout)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+      - name: Run Deno tests
+        run: deno test --allow-env --allow-net supabase/functions
+
+  e2e:
+    name: End-to-end (Maestro)
+    runs-on: ubuntu-latest
+    if: false # → enabled by Module 15 (hardening & release)
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Maestro flows
+        run: echo "Maestro flows land in Module 15"

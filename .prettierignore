@@ -1,0 +1,9 @@
+node_modules
+dist
+build
+.turbo
+.expo
+coverage
+pnpm-lock.yaml
+packages/shared/src/db.types.ts
+supabase/.temp

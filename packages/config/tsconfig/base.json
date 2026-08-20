@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Rural OPD base",
+  "_comment": [
+    "The compiler contract for the whole repo. It lives inside the package,",
+    "with no relative `extends` escaping the package directory, because tools",
+    "that resolve tsconfig without following pnpm symlinks (oxc/vitest, Vite)",
+    "cannot walk out of node_modules/@rural-opd/config. The root",
+    "tsconfig.base.json extends this file and adds the workspace path aliases."
+  ],
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
+  },
+  "exclude": ["node_modules", "dist", "build", ".turbo"]
+}
