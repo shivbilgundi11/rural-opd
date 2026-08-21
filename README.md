@@ -40,7 +40,7 @@ packages/shared  generated DB types, zod schemas, money, error codes
 packages/tokens  design tokens (empty shell — populated in Module 4)
 packages/config  shared ESLint / TypeScript presets
 supabase/        migrations, Edge Functions, pgTAP tests
-scripts/         secret scanner
+scripts/         secret scanner, schema invariant + concurrency proofs
 ```
 
 **There is no `apps/api`, and there will not be one.** TA §1: one backend. If
@@ -59,5 +59,6 @@ something feels like it needs a Node server, it is an Edge Function.
 | #    | Module                                       | State                                     |
 | ---- | -------------------------------------------- | ----------------------------------------- |
 | 1    | Foundations: monorepo, tooling, environments | **built** — see `Modules/01-foundations/` |
-| 2    | Data model & migrations                      | next                                      |
-| 3–15 | —                                            | planned, see `docs/MODULES.md`            |
+| 2    | Data model & migrations                      | **built** — see `docs/DATA-MODEL.md`      |
+| 3    | RLS, roles & security test harness           | next                                      |
+| 4–15 | —                                            | planned, see `docs/MODULES.md`            |
