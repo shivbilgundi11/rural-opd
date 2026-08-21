@@ -23,6 +23,10 @@
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
     "db:types": "node scripts/gen-db-types.mjs",
+    "db:test": "supabase test db",
+    "db:invariants": "node scripts/run-invariant-violations.mjs",
+    "db:concurrency": "node scripts/verify-token-concurrency.mjs",
+    "db:verify": "pnpm db:reset && pnpm db:test && pnpm db:invariants && pnpm db:concurrency && pnpm db:types",
     "scan:secrets": "node scripts/scan-secrets.mjs",
     "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm scan:secrets",
     "prepare": "husky"
@@ -37,6 +41,7 @@
     "globals": "^17.11.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.3.0",
+    "pg": "^8.23.0",
     "prettier": "^3.9.6",
     "turbo": "^2.10.11",
     "typescript": "5.9.3"
