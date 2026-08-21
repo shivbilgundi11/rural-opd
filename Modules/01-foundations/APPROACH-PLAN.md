@@ -258,7 +258,7 @@ pnpm create expo-app apps/mobile --template blank-typescript
 
 Then:
 
-- Set SDK 57, add `expo-router` dependency (routing configured in Module 6).
+- Set SDK 54, add `expo-router` dependency (routing configured in Module 6).
 - `app.config.ts` reading env by build profile; scheme `ruralopd` registered now
   so deep links in Module 13 don't require a rebuild of every install.
 - `eas.json` with `development` (dev client), `preview`, `production` profiles.

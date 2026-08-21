@@ -176,7 +176,7 @@ real (if empty) screens.
 
 **Scope**
 
-- Expo SDK 57 bootstrap, dev build, expo-router file-based routing with typed
+- Expo SDK 54 bootstrap, dev build, expo-router file-based routing with typed
   routes.
 - Providers: react-query (with the retry/caching policy the queue will later
   rely on), Supabase client, theme.

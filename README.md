@@ -34,7 +34,7 @@ CI runs the same five steps and blocks a merge on any of them.
 ## Layout
 
 ```
-apps/mobile      Expo SDK 57 patient app
+apps/mobile      Expo SDK 54 patient app
 apps/web         Vite + React staff app
 packages/shared  generated DB types, zod schemas, money, error codes
 packages/tokens  design tokens (empty shell — populated in Module 4)

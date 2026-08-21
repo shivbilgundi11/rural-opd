@@ -40,5 +40,16 @@
     "prettier": "^3.9.6",
     "turbo": "^2.10.11",
     "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "react-native-reanimated": "~4.1.1",
+      "react-native-worklets": "0.5.1"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@types/react-dom>@types/react": "19.1.17"
+      }
+    }
   }
 }
