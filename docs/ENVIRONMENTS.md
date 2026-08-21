@@ -139,13 +139,14 @@ mobile shell costs a day.
 
 ## 8. Status
 
-| Item                           | State                                           |
-| ------------------------------ | ----------------------------------------------- |
-| Local stack (`supabase start`) | configured, `supabase/config.toml` committed    |
-| Staging project                | **not yet created** — needs Supabase org access |
-| Production project             | **not yet created** — needs Supabase org access |
-| EAS project id                 | **not yet registered** — needs an Expo account  |
-| Android dev build on a device  | **not yet produced** — depends on EAS above     |
+| Item                              | State                                           |
+| --------------------------------- | ----------------------------------------------- |
+| Local stack (`supabase start`)    | configured, `supabase/config.toml` committed    |
+| Schema (migrations `0001`–`0012`) | applied locally; `pnpm db:verify` green         |
+| Staging project                   | **not yet created** — needs Supabase org access |
+| Production project                | **not yet created** — needs Supabase org access |
+| EAS project id                    | **not yet registered** — needs an Expo account  |
+| Android dev build on a device     | **not yet produced** — depends on EAS above     |
 
 Everything in this table that is outstanding needs an account credential rather
 than a code change. The repository, the config and the build profiles are ready
