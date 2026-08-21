@@ -29,7 +29,7 @@ reverse once three surfaces depend on them.
 | Source         | Requirement                                                  | Covered by                            |
 | -------------- | ------------------------------------------------------------ | ------------------------------------- |
 | TA §1          | One backend, no duplicate Node/Express layer                 | Workspace layout — no `apps/api`      |
-| TA §2          | Expo SDK 57 + RN + TS; EAS Build + EAS Update                | `apps/mobile`, EAS config             |
+| TA §2          | Expo SDK 54 + RN + TS; EAS Build + EAS Update                | `apps/mobile`, EAS config             |
 | TA §7          | Secrets only in Edge Function secrets, never `EXPO_PUBLIC_*` | Secret policy + CI scanner            |
 | TA §8 Block A  | "Stable typed contracts"                                     | `packages/shared` + type generation   |
 | PRD §9 Phase 0 | Backend readiness                                            | Environments + migration pipeline     |
@@ -85,7 +85,7 @@ reverse once three surfaces depend on them.
 
 ### 4.7 Bootstrapped apps
 
-- `apps/mobile`: Expo SDK 57 blank-TypeScript app that builds and launches.
+- `apps/mobile`: Expo SDK 54 blank-TypeScript app that builds and launches.
 - `apps/web`: Vite + React + TS app that builds and serves.
 - Both consume a trivial export from `packages/shared` to prove the wiring.
 
@@ -121,7 +121,7 @@ bootstrapped apps. All modules need CI.
 ├─ docs/ENVIRONMENTS.md
 ├─ docs/SECRETS.md
 ├─ docs/CONVENTIONS.md
-├─ apps/mobile/          (Expo SDK 57, builds, launches)
+├─ apps/mobile/          (Expo SDK 54, builds, launches)
 ├─ apps/web/             (Vite + React, builds, serves)
 ├─ packages/shared/      (types, zod, money helpers, error codes)
 ├─ packages/tokens/      (empty but buildable — filled in Module 4)
@@ -165,7 +165,7 @@ _infrastructure assertions_:
 | Risk                                                       | Impact                                                  | Mitigation                                                                              |
 | ---------------------------------------------------------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | Windows CRLF corrupts `.sql`/`.sh`/Deno files              | Supabase CLI and Deno errors that look like syntax bugs | `.gitattributes` forcing LF; documented in CONVENTIONS                                  |
-| Expo SDK 57 native modules require dev builds, not Expo Go | Module 6 stalls                                         | Produce a dev build in _this_ module, not later                                         |
+| Expo SDK 54 native modules require dev builds, not Expo Go | Module 6 stalls                                         | Produce a dev build in _this_ module, not later                                         |
 | Money as float creeps in via a gateway SDK                 | Payment/token amount mismatch (PRD §6)                  | Integer-paise convention + a lint rule banning `parseFloat` in payment paths            |
 | Type drift: hand-written enums in clients                  | `StatusBadge` shows a status the DB never emits         | Generated types only; ESLint rule bans literal status strings outside `packages/shared` |
 | Monorepo tooling churn eats a week                         | Delays Phase 0                                          | Timebox; pnpm + Turborepo is the default, do not evaluate alternatives                  |
