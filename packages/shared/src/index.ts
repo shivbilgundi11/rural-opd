@@ -10,6 +10,7 @@ export * from "./money";
 export * from "./errors";
 export * from "./result";
 export * from "./enums";
+export * from "./status-presentation";
 export * from "./env";
 export * from "./schemas";
 export type { Database, Json, PublicSchema } from "./db.types";
