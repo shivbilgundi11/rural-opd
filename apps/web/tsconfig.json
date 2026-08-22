@@ -1,7 +1,7 @@
 {
   "extends": "@rural-opd/config/tsconfig/react-dom.json",
   "compilerOptions": {
-    "types": ["vite/client"],
+    "types": ["vite/client", "vitest/globals"],
     "baseUrl": ".",
     "paths": {
       "@rural-opd/shared": ["../../packages/shared/src/index.ts"],
@@ -10,6 +10,13 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "vite.config.ts", "eslint.config.js"],
+  "include": [
+    "src",
+    "tests",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "tailwind.config.ts",
+    "eslint.config.js"
+  ],
   "exclude": ["node_modules", "dist"]
 }

@@ -10,23 +10,32 @@
     "preview": "vite preview",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
-    "test": "echo \"@rural-opd/web has no tests until Module 5\""
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@rural-opd/shared": "workspace:*",
     "@rural-opd/tokens": "workspace:*",
     "@supabase/supabase-js": "^2.112.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.33.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "react-router-dom": "^7.18.2"
+    "react-router-dom": "^7.18.2",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@rural-opd/config": "workspace:*",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.0",
+    "autoprefixer": "^10.4.20",
     "eslint": "^9.39.5",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
     "typescript": "5.9.3",
-    "vite": "^8.2.2"
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
   }
 }
