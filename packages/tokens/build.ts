@@ -118,6 +118,23 @@ function tailwindPreset(): string {
     ),
     fontWeight: Object.fromEntries(Object.entries(fontWeight)),
     boxShadow: elevation.web,
+
+    // Replacing `colors` is not quite enough on its own. A handful of Tailwind
+    // theme keys carry their own hardcoded `DEFAULT` that does not derive from
+    // the palette, so they survive the replacement and quietly reintroduce
+    // colours from a design system this product is not using:
+    //
+    //   border    Tailwind's gray-200, so a bare `border` is not border.subtle
+    //   ring      blue-500, so every default focus ring is the wrong blue
+    //   ring-offset  #fff, which is not surface.base
+    //
+    // The focus ring is the one that matters. It is the affordance a keyboard
+    // or switch user navigates by (DESIGN.md §6), and a default-blue ring on a
+    // green button is both off-palette and lower contrast than the token that
+    // was designed for it.
+    borderColor: { DEFAULT: colors.border.subtle, ...flatColors },
+    ringColor: { DEFAULT: colors.primary.blue, ...flatColors },
+    ringOffsetColor: { DEFAULT: colors.surface.base, ...flatColors },
     // Not a spacing value: the 44px floor is a hit-area rule from DESIGN.md §3,
     // and giving it its own scale means `min-w-touch` reads as the rule it is.
     minWidth: { touch: `${MIN_TOUCH_TARGET}px` },
