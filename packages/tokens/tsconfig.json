@@ -1,6 +1,15 @@
 {
   "extends": "@rural-opd/config/tsconfig/library.json",
-  "compilerOptions": { "noEmit": true },
-  "include": ["src/**/*.ts", "eslint.config.js"],
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["vitest/globals"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "build.ts",
+    "vitest.config.ts",
+    "eslint.config.js"
+  ],
   "exclude": ["node_modules", "dist"]
 }

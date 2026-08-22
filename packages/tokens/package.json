@@ -12,20 +12,42 @@
       "react-native": "./src/index.ts",
       "import": "./src/index.ts",
       "default": "./src/index.ts"
+    },
+    "./native": {
+      "types": "./dist/tokens.native.ts",
+      "react-native": "./dist/tokens.native.ts",
+      "import": "./dist/tokens.native.ts",
+      "default": "./dist/tokens.native.ts"
+    },
+    "./tailwind-preset": {
+      "require": "./dist/tailwind-preset.cjs",
+      "default": "./dist/tailwind-preset.cjs"
+    },
+    "./css-variables.css": "./dist/css-variables.css",
+    "./*": {
+      "types": "./src/*.ts",
+      "react-native": "./src/*.ts",
+      "import": "./src/*.ts",
+      "default": "./src/*.ts"
     }
   },
   "files": [
-    "src"
+    "src",
+    "dist",
+    "build.ts"
   ],
   "scripts": {
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
-    "test": "echo \"@rural-opd/tokens has no tests until Module 4\"",
-    "build": "tsc --noEmit"
+    "test": "vitest run",
+    "build": "tsx build.ts",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@rural-opd/config": "workspace:*",
     "eslint": "^9.39.5",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "tsx": "^4.20.6",
+    "vitest": "^4.1.11"
   }
 }
