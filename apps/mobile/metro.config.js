@@ -4,6 +4,7 @@
 const path = require("node:path");
 
 const { getDefaultConfig } = require("expo/metro-config");
+const { withNativeWind } = require("nativewind/metro");
 
 const projectRoot = __dirname;
 const workspaceRoot = path.resolve(projectRoot, "../..");
@@ -35,4 +36,8 @@ config.resolver.unstable_conditionNames = [
   "default",
 ];
 
-module.exports = config;
+// NativeWind wraps the finished config so its Metro transformer compiles
+// `global.css` into the style objects `className` resolves against. It goes last
+// so it wraps the monorepo resolver settings above rather than being overwritten
+// by them.
+module.exports = withNativeWind(config, { input: "./global.css" });

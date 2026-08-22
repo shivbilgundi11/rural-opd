@@ -59,8 +59,13 @@ export const noNamedColourLiterals = {
  * and passes.
  */
 export const noInlineMotionTimings = {
+  // Matched on `raw`, the literal's source text, rather than on `value`.
+  // esquery only applies a regex to string values, so `[value=/^[0-9.]+$/]`
+  // silently matches nothing at all against `duration: 250` — the rule loads,
+  // reports no errors, and looks like it is working. Found by probing it with a
+  // file that should have failed and did not.
   selector:
-    "Property[key.name=/^(duration|damping|stiffness|delay|stagger|mass)$/] > Literal[value=/^[0-9.]+$/]",
+    "Property[key.name=/^(duration|damping|stiffness|delay|stagger|mass)$/] > Literal[raw=/^[0-9.]+$/]",
   message:
     "Motion timings come from `motion` in @rural-opd/tokens. A second spring config is how the two surfaces drift apart (DESIGN.md §4, §7).",
 };
@@ -77,10 +82,14 @@ export const noInlineMotionTimings = {
  * because it reads as "unset" rather than "deliberately none".
  */
 export const noInlineSpacingLiterals = {
+  // `raw` rather than `value`, for the same reason as the rule above. The `0`
+  // exclusion moves out of the regex and into a second attribute for the same
+  // reason: a lookahead against a value esquery never string-matches is a
+  // no-op wearing a lookahead.
   selector:
-    "Property[key.name=/^(padding|margin|gap|borderRadius)(Top|Bottom|Left|Right|Horizontal|Vertical|Start|End)?$/] > Literal[value=/^(?!0$)[0-9.]+$/]",
+    "Property[key.name=/^(padding|margin|gap|borderRadius)(Top|Bottom|Left|Right|Horizontal|Vertical|Start|End)?$/] > Literal[raw=/^[0-9.]+$/][raw!='0']",
   message:
-    "Spacing and radii come from `spacing` and `radii` in @rural-opd/tokens (DESIGN.md §3).",
+    "Spacing and radii come from `spacing` and `radii` in @rural-opd/tokens (DESIGN.md §3) — including values that happen to be on the scale, so they follow it when it changes.",
 };
 
 /**

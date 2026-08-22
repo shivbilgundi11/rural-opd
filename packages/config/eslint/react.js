@@ -3,6 +3,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 
 import { baseConfig } from "./base.js";
+import { sharedDesignRules } from "./design-rules.js";
 import { restrictedSyntax } from "./restricted.js";
 
 /**
@@ -28,11 +29,18 @@ export function reactConfig({ tsconfigRootDir, project = "./tsconfig.json" }) {
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "error",
         // DESIGN.md §1 and §5 — enforced in components from Module 4 onwards.
+        //
+        // Module 1 seeded the first three and Module 4 switched on the rest.
+        // They are listed in one array because `no-restricted-syntax` does not
+        // merge across config objects: a second entry replaces the first
+        // wholesale, so splitting them by module would silently disable
+        // whichever half came earlier.
         "no-restricted-syntax": [
           "error",
           restrictedSyntax.noFloatParsingInMoney,
           restrictedSyntax.noHexColourLiterals,
           restrictedSyntax.noStatusStringLiterals,
+          ...sharedDesignRules,
         ],
       },
     },

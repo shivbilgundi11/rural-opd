@@ -1,0 +1,8 @@
+/*
+ * NativeWind needs a stylesheet entry point even though React Native has no
+ * cascade — this is what its Metro transformer compiles the utilities from.
+ * Imported once, from the root layout.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
