@@ -139,9 +139,48 @@ function tailwindPreset(): string {
     // and giving it its own scale means `min-w-touch` reads as the rule it is.
     minWidth: { touch: `${MIN_TOUCH_TARGET}px` },
     minHeight: { touch: `${MIN_TOUCH_TARGET}px` },
+
+    // The press scale as a named class, so the web button can write
+    // `active:scale-press` instead of `active:scale-[0.97]`.
+    //
+    // Added because the arbitrary-value lint rule rejected the hardcoded
+    // version — correctly. 0.97 is a motion token, and a copy of it living in a
+    // class string is the same transcription problem as a copied hex: it works,
+    // and it stops matching the mobile spring the day either is tuned.
+    scale: {
+      100: "1",
+      press: String(motion.buttonPress.toScale),
+    },
   };
 
-  return `${BANNER}\n\nmodule.exports = ${JSON.stringify({ theme }, null, 2)};\n`;
+  // The one place `extend` is correct, and worth being precise about rather
+  // than treating "never extend" as the rule.
+  //
+  // Replacing exists to *delete* wrong values — an off-scale `p-5` or an
+  // off-palette `bg-red-500` has to stop working. Tailwind's animation keys hold
+  // no such values: `animate-spin` is a mechanism, not a design decision, and
+  // deleting it would only push the next spinner into a hand-written keyframe.
+  // So the scales are replaced and the animations are extended.
+  //
+  // The shimmer duration is read from `motion.shimmer` rather than typed here,
+  // which is what makes DESIGN.md §4's "~1.2s loop" one number both surfaces
+  // animate to.
+  const extend = {
+    keyframes: {
+      shimmer: {
+        // Opacity rather than a travelling gradient highlight. That effect needs
+        // a `background-size` trick React Native cannot reproduce, and a shimmer
+        // that exists on only one surface is exactly the drift §7 is about.
+        "0%, 100%": { opacity: "1" },
+        "50%": { opacity: "0.55" },
+      },
+    },
+    animation: {
+      shimmer: `shimmer ${motion.shimmer.duration}ms ease-in-out infinite`,
+    },
+  };
+
+  return `${BANNER}\n\nmodule.exports = ${JSON.stringify({ theme: { ...theme, extend } }, null, 2)};\n`;
 }
 
 // ---------------------------------------------------------------------------
