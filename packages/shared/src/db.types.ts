@@ -184,6 +184,7 @@ export type Database = {
         Row: {
           action: string
           actor_auth_user_id: string | null
+          actor_role: string | null
           after_row: Json | null
           before_row: Json | null
           created_at: string
@@ -194,6 +195,7 @@ export type Database = {
         Insert: {
           action: string
           actor_auth_user_id?: string | null
+          actor_role?: string | null
           after_row?: Json | null
           before_row?: Json | null
           created_at?: string
@@ -204,6 +206,7 @@ export type Database = {
         Update: {
           action?: string
           actor_auth_user_id?: string | null
+          actor_role?: string | null
           after_row?: Json | null
           before_row?: Json | null
           created_at?: string
@@ -1400,7 +1403,56 @@ export type Database = {
       }
     }
     Functions: {
+      admin_read_medical_profile: {
+        Args: { p_patient: string }
+        Returns: {
+          allergies: string[]
+          blood_group: string | null
+          conditions: string[]
+          emergency_contact_name: string | null
+          emergency_contact_phone: string | null
+          medications: string[]
+          patient_id: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "medical_profiles"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      appointment_hospital_id: {
+        Args: { p_appointment: string }
+        Returns: string
+      }
+      appointment_ids_for_current_user: { Args: never; Returns: string[] }
+      auth_aal: { Args: never; Returns: string }
+      auth_uid: { Args: never; Returns: string }
+      doctor_id_for_current_user: { Args: never; Returns: string }
+      doctor_is_bookable: { Args: { p_doctor: string }; Returns: boolean }
+      doctor_owns_session: { Args: { p_session: string }; Returns: boolean }
+      hospital_is_active: { Args: { p_hospital: string }; Returns: boolean }
+      is_staff: { Args: never; Returns: boolean }
       next_token_number: { Args: { p_session_id: string }; Returns: number }
+      patient_has_appointment_at: {
+        Args: { p_hospital: string; p_patient: string }
+        Returns: boolean
+      }
+      patient_ids_for_current_user: { Args: never; Returns: string[] }
+      patient_in_doctor_consultation: {
+        Args: { p_patient: string }
+        Returns: boolean
+      }
+      patient_in_doctor_queue: { Args: { p_patient: string }; Returns: boolean }
+      session_hospital_id: { Args: { p_session: string }; Returns: string }
+      staff_hospital_id: { Args: never; Returns: string }
+      staff_mfa_satisfied: { Args: never; Returns: boolean }
+      staff_role: {
+        Args: never
+        Returns: Database["public"]["Enums"]["staff_role"]
+      }
+      token_ids_for_current_user: { Args: never; Returns: string[] }
     }
     Enums: {
       appointment_source: "APP" | "WALK_IN"

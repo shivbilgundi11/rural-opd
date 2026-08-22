@@ -54,10 +54,17 @@ jobs:
 
   # Switched on by Module 2, not Module 3: the schema is the product's source of
   # truth from the moment it exists, and a regression in it is cheapest to catch
-  # on the commit that caused it. Module 3 extends this job with the RLS
-  # allow/deny matrix rather than creating it.
+  # on the commit that caused it. Module 3 extended this job with the RLS
+  # allow/deny matrix and the attack suite rather than creating it.
+  #
+  # TA §7 and PRD §8 both make RLS tests a release blocker, so this job must be a
+  # **required status check** on the default branch — that part is a repository
+  # setting, not a file, and docs/SECURITY-MODEL.md records it as such. Without
+  # it the suite reports a failure that a merge can ignore, and the completeness
+  # checks that are supposed to stop Module 8 adding an unprotected table stop
+  # stopping anything.
   db-tests:
-    name: Database (pgTAP + invariants)
+    name: Database (pgTAP + invariants + RLS)
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -92,6 +99,13 @@ jobs:
       # rule that quietly stopped being enforced.
       - name: Prove the invariants
         run: node scripts/run-invariant-violations.mjs
+
+      # Module 3. Every statement in the attack suite must be denied, and denied
+      # in the coded way — a missing grant raising 42501 is a different control
+      # from a policy quietly returning nothing, and swapping one for the other
+      # is the regression this catches. TA §7 makes it a release blocker.
+      - name: Prove the RLS policies deny what they should
+        run: node scripts/run-rls-attacks.mjs
 
       # The proof pgTAP cannot give: two real connections contending for the
       # token counter.

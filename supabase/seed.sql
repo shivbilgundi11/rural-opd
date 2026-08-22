@@ -28,18 +28,25 @@ set search_path = public, extensions;
 -- staging and production projects have no seeded users at all.
 insert into auth.users (
   instance_id, id, aud, role, email, encrypted_password, email_confirmed_at,
-  raw_app_meta_data, raw_user_meta_data, created_at, updated_at
+  raw_app_meta_data, raw_user_meta_data, created_at, updated_at,
+  -- These four have no column default, and GoTrue scans them into non-nullable
+  -- Go strings. Leaving them NULL makes every seeded account unable to sign in:
+  -- `/auth/v1/token` answers "Database error querying schema", which reads like a
+  -- permissions fault and is not one. Added by Module 3, which needed real JWTs
+  -- to check the policies through PostgREST rather than only through psql —
+  -- Module 6 would have hit it on its first login screen.
+  confirmation_token, recovery_token, email_change_token_new, email_change
 )
 values
-  ('00000000-0000-0000-0000-000000000000', 'aaaaaaaa-0000-0000-0000-000000000001', 'authenticated', 'authenticated', 'anjali@patient.test',        crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Anjali Deshmukh"}',    now(), now()),
-  ('00000000-0000-0000-0000-000000000000', 'aaaaaaaa-0000-0000-0000-000000000002', 'authenticated', 'authenticated', 'ramesh@patient.test',        crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Ramesh Pawar"}',       now(), now()),
-  ('00000000-0000-0000-0000-000000000000', 'aaaaaaaa-0000-0000-0000-000000000003', 'authenticated', 'authenticated', 'sunita@patient.test',        crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Sunita Kale"}',        now(), now()),
-  ('00000000-0000-0000-0000-000000000000', 'bbbbbbbb-0000-0000-0000-000000000001', 'authenticated', 'authenticated', 'super@staff.test',           crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Platform Admin"}',     now(), now()),
-  ('00000000-0000-0000-0000-000000000000', 'bbbbbbbb-0000-0000-0000-000000000002', 'authenticated', 'authenticated', 'admin.sethu@staff.test',     crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Meera Joshi"}',        now(), now()),
-  ('00000000-0000-0000-0000-000000000000', 'bbbbbbbb-0000-0000-0000-000000000003', 'authenticated', 'authenticated', 'reception.sethu@staff.test', crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Nilesh Sawant"}',      now(), now()),
-  ('00000000-0000-0000-0000-000000000000', 'bbbbbbbb-0000-0000-0000-000000000004', 'authenticated', 'authenticated', 'dr.kulkarni@staff.test',     crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Dr Suresh Kulkarni"}', now(), now()),
-  ('00000000-0000-0000-0000-000000000000', 'bbbbbbbb-0000-0000-0000-000000000005', 'authenticated', 'authenticated', 'admin.gramin@staff.test',    crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Prakash Shinde"}',     now(), now()),
-  ('00000000-0000-0000-0000-000000000000', 'bbbbbbbb-0000-0000-0000-000000000006', 'authenticated', 'authenticated', 'dr.iyer@staff.test',         crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Dr Lakshmi Iyer"}',    now(), now());
+  ('00000000-0000-0000-0000-000000000000', 'aaaaaaaa-0000-0000-0000-000000000001', 'authenticated', 'authenticated', 'anjali@patient.test',        crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Anjali Deshmukh"}',    now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', 'aaaaaaaa-0000-0000-0000-000000000002', 'authenticated', 'authenticated', 'ramesh@patient.test',        crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Ramesh Pawar"}',       now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', 'aaaaaaaa-0000-0000-0000-000000000003', 'authenticated', 'authenticated', 'sunita@patient.test',        crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Sunita Kale"}',        now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', 'bbbbbbbb-0000-0000-0000-000000000001', 'authenticated', 'authenticated', 'super@staff.test',           crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Platform Admin"}',     now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', 'bbbbbbbb-0000-0000-0000-000000000002', 'authenticated', 'authenticated', 'admin.sethu@staff.test',     crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Meera Joshi"}',        now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', 'bbbbbbbb-0000-0000-0000-000000000003', 'authenticated', 'authenticated', 'reception.sethu@staff.test', crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Nilesh Sawant"}',      now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', 'bbbbbbbb-0000-0000-0000-000000000004', 'authenticated', 'authenticated', 'dr.kulkarni@staff.test',     crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Dr Suresh Kulkarni"}', now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', 'bbbbbbbb-0000-0000-0000-000000000005', 'authenticated', 'authenticated', 'admin.gramin@staff.test',    crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Prakash Shinde"}',     now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', 'bbbbbbbb-0000-0000-0000-000000000006', 'authenticated', 'authenticated', 'dr.iyer@staff.test',         crypt('password123', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Dr Lakshmi Iyer"}',    now(), now(), '', '', '', '');
 
 -- Without an identity row GoTrue will not accept an email/password sign-in, so
 -- the seeded accounts would exist as foreign-key targets and be unusable from
@@ -147,6 +154,17 @@ values
   ('44444444-4444-4444-4444-444444444401', 'B+', '{Penicillin}',   '{}',          '{}',                  'Ramesh Pawar',    '+919812340002'),
   ('44444444-4444-4444-4444-444444444402', 'O+', '{}',             '{Metformin}', '{"Type 2 diabetes"}', 'Anjali Deshmukh', '+919812340001'),
   ('44444444-4444-4444-4444-444444444404', 'B+', '{"Dust mites"}', '{}',          '{Asthma}',            'Anjali Deshmukh', '+919812340001');
+
+-- One registered device per account holder. Added by Module 3: `device_push_tokens`
+-- was the only table the seed left empty, and Module 3's visibility matrix checks
+-- each denial against a table that actually has rows in it — otherwise "you
+-- cannot see anything here" and "there is nothing here" look identical and the
+-- suite certifies an empty table as a security control. Module 13 drains against
+-- these too.
+insert into device_push_tokens (id, auth_user_id, expo_push_token, platform, last_seen_at)
+values
+  ('44444444-0000-0000-0000-0000000000d1', 'aaaaaaaa-0000-0000-0000-000000000001', 'ExponentPushToken[seed-anjali-android]', 'android', now() - interval '5 minutes'),
+  ('44444444-0000-0000-0000-0000000000d2', 'aaaaaaaa-0000-0000-0000-000000000002', 'ExponentPushToken[seed-ramesh-android]', 'android', now() - interval '2 hours');
 
 -- ===========================================================================
 -- Appointments — at least one in every status a screen renders

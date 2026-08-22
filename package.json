@@ -25,8 +25,9 @@
     "db:types": "node scripts/gen-db-types.mjs",
     "db:test": "supabase test db",
     "db:invariants": "node scripts/run-invariant-violations.mjs",
+    "db:attacks": "node scripts/run-rls-attacks.mjs",
     "db:concurrency": "node scripts/verify-token-concurrency.mjs",
-    "db:verify": "pnpm db:reset && pnpm db:test && pnpm db:invariants && pnpm db:concurrency && pnpm db:types",
+    "db:verify": "pnpm db:reset && pnpm db:test && pnpm db:invariants && pnpm db:attacks && pnpm db:concurrency && pnpm db:types",
     "scan:secrets": "node scripts/scan-secrets.mjs",
     "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm scan:secrets",
     "prepare": "husky"
