@@ -38,18 +38,42 @@ name. This is the single source of truth — mirror it into `tailwind.config`
 (web) and `theme/colors.ts` (mobile) rather than retyping it.
 
 ```
-primary.green   #1B8A5A   Primary actions, success states, confirmed token, active nav
+primary.green   #187D51   Primary actions, success states, confirmed token, active nav
 primary.blue    #0F6FB8   Secondary actions, links, headers, informational states
-accent.teal     #0E7C86   Progress rings, queue-position accents, highlights
-success         #1B8A5A   Payment success, confirmed appointment
-warning         #B8860B   Processing / pending payment, delayed session
+accent.teal     #0E7983   Progress rings, queue-position accents, highlights
+success         #187D51   Payment success, confirmed appointment
+warning         #8E6708   Processing / pending payment, delayed session
 danger          #C0392B   Failed payment, cancelled, no-show
 surface.base    #F7FAF8   App / page background
 surface.alt     #E8F2FB   Cards, info banners (light blue tint)
 text.primary    #1F2937   Headings, body text
-text.muted      #6B7280   Secondary text, timestamps, help copy
+text.muted      #676E7C   Secondary text, timestamps, help copy
+text.onFill     #FFFFFF   Text and icons on a filled primary/success/warning/danger surface
 border.subtle   #E2E8E4   Card borders, dividers
 ```
+
+> **Four values were darkened in Module 4 to meet Section 6's AA requirement.**
+> The palette as originally drafted (and as it appears in PRD Section 7) did not
+> reach 4.5:1, and `primary.green` — the colour of the primary action — missed in
+> every role it is used in: 4.14 as text on `surface.base`, 3.84 on
+> `surface.alt`, and 4.35 under white as a button fill. `warning` was worse at
+> 3.10 / 2.87 / 3.25, and it is _mandatory_ for pending states, which is exactly
+> the copy a patient reads while wondering whether their payment went through.
+>
+> | Token                      | Was       | Now       |
+> | -------------------------- | --------- | --------- |
+> | `primary.green`, `success` | `#1B8A5A` | `#187D51` |
+> | `accent.teal`              | `#0E7C86` | `#0E7983` |
+> | `warning`                  | `#B8860B` | `#8E6708` |
+> | `text.muted`               | `#6B7280` | `#676E7C` |
+>
+> Each moved by the minimum that clears 4.5:1 as text on both surfaces _and_
+> under white as a fill. Hue and intent are unchanged; `warning` is the only
+> visibly different one, moving from goldenrod to a deeper amber. `primary.blue`,
+> `danger`, `text.primary`, both surfaces and `border.subtle` keep their original
+> values. `packages/tokens/tests/contrast.test.ts` re-derives all of it on every
+> commit, and `tokens.test.ts` reads the table above as its fixture — so this
+> document and the code cannot disagree silently.
 
 Rules:
 
