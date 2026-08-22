@@ -47,6 +47,15 @@ jobs:
       - name: Secret scan
         run: node scripts/scan-secrets.mjs --verbose
 
+      # Module 4. DESIGN.md §0's one hard rule about the two surfaces: Animate
+      # UI and friends render to the DOM and cannot build in Expo. The lint rule
+      # covers imports; this covers the dependency tree, because a package can
+      # be installed before anything imports it and that is the state in which
+      # somebody else's unrelated build breaks with a Metro error deep inside a
+      # transitive dependency.
+      - name: Mobile stays native
+        run: node scripts/assert-mobile-stays-native.mjs
+
   # ---------------------------------------------------------------------------
   # Slots below are deliberately visible and disabled. Each names the module
   # that switches it on, so that module adds a line rather than a pipeline.

@@ -2,7 +2,7 @@
   "name": "rural-opd",
   "version": "0.1.0",
   "private": true,
-  "description": "Rural OPD Platform — patient mobile app, staff web app and Supabase backend",
+  "description": "Rural OPD Platform \u2014 patient mobile app, staff web app and Supabase backend",
   "packageManager": "pnpm@9.15.9",
   "engines": {
     "node": ">=20.19",
@@ -29,7 +29,8 @@
     "db:concurrency": "node scripts/verify-token-concurrency.mjs",
     "db:verify": "pnpm db:reset && pnpm db:test && pnpm db:invariants && pnpm db:attacks && pnpm db:concurrency && pnpm db:types",
     "scan:secrets": "node scripts/scan-secrets.mjs",
-    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm scan:secrets",
+    "check:mobile-native": "node scripts/assert-mobile-stays-native.mjs",
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm scan:secrets && pnpm check:mobile-native",
     "prepare": "husky"
   },
   "devDependencies": {
