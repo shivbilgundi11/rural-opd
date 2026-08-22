@@ -18,11 +18,11 @@ import { fileURLToPath } from "node:url";
 
 import { describe, expect, it } from "vitest";
 
-import { colors } from "../src/colors.js";
-import { motion } from "../src/motion.js";
-import { radii } from "../src/radii.js";
-import { MIN_TOUCH_TARGET, spacing } from "../src/spacing.js";
-import { fontSize, lineHeight, MIN_ACTIONABLE_FONT_SIZE } from "../src/typography.js";
+import { colors } from "../src/colors";
+import { motion } from "../src/motion";
+import { radii } from "../src/radii";
+import { MIN_TOUCH_TARGET, spacing } from "../src/spacing";
+import { fontSize, lineHeight, MIN_ACTIONABLE_FONT_SIZE } from "../src/typography";
 
 const REPO_ROOT = resolve(fileURLToPath(new URL("../../..", import.meta.url)));
 const DESIGN_MD = readFileSync(resolve(REPO_ROOT, "DESIGN.md"), "utf8");

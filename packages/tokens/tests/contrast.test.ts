@@ -18,8 +18,8 @@
 
 import { describe, expect, it } from "vitest";
 
-import { colors, colorRoles } from "../src/colors.js";
-import { contrastRatio, deltaE, lightness, WCAG_AA_NORMAL } from "../src/contrast.js";
+import { colors, colorRoles } from "../src/colors";
+import { contrastRatio, deltaE, lightness, WCAG_AA_NORMAL } from "../src/contrast";
 
 /** Resolves `"primary.green"` against the nested token object. */
 function token(path: string): string {

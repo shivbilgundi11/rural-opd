@@ -24,12 +24,12 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { colors } from "./src/colors.js";
-import { elevation } from "./src/elevation.js";
-import { motion } from "./src/motion.js";
-import { radii } from "./src/radii.js";
-import { MIN_TOUCH_TARGET, spacing, TOUCH_HIT_SLOP } from "./src/spacing.js";
-import { fontSize, fontWeight, lineHeight } from "./src/typography.js";
+import { colors } from "./src/colors";
+import { elevation } from "./src/elevation";
+import { motion } from "./src/motion";
+import { radii } from "./src/radii";
+import { MIN_TOUCH_TARGET, spacing, TOUCH_HIT_SLOP } from "./src/spacing";
+import { fontSize, fontWeight, lineHeight } from "./src/typography";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const DIST = resolve(HERE, "dist");

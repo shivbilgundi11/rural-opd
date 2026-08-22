@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { Text, View } from "react-native";
 
 import { BASE_OPD_FEE_PAISE, formatINR } from "@rural-opd/shared";
@@ -34,6 +35,9 @@ export default function WiringProofScreen(): ReactElement {
         Base OPD fee, from @rural-opd/shared
       </Text>
       <Text className="text-sm text-text-muted">Environment: {env.APP_ENV}</Text>
+      <Link className="text-base text-primary-blue underline" href="/gallery">
+        Design system gallery
+      </Link>
     </View>
   );
 }

@@ -28,10 +28,17 @@
  *
  * Do not hardcode a hex, a radius, a spacing value or a spring config in a
  * component — `@rural-opd/config/eslint/design-rules` rejects them.
+ *
+ * Relative imports here are extensionless, matching `@rural-opd/shared`. The
+ * `.js` specifiers that TypeScript's own docs favour work in `tsc` and in Vite,
+ * and Metro does not remap them onto the `.ts` file that actually exists — so
+ * the mobile bundle fails to resolve `./colors.js` while every other tool is
+ * happy. Both workspace packages ship source rather than build output, so both
+ * follow the bundler's rules.
  */
 
-export { colors, colorRoles } from "./colors.js";
-export type { ColorRole } from "./colors.js";
+export { colors, colorRoles } from "./colors";
+export type { ColorRole } from "./colors";
 
 export {
   fontSize,
@@ -40,20 +47,20 @@ export {
   MIN_ACTIONABLE_FONT_SIZE,
   LARGE_TEXT_PX,
   LARGE_TEXT_BOLD_PX,
-} from "./typography.js";
-export type { FontSizeToken, LineHeightToken, FontWeightToken } from "./typography.js";
+} from "./typography";
+export type { FontSizeToken, LineHeightToken, FontWeightToken } from "./typography";
 
-export { spacing, MIN_TOUCH_TARGET, TOUCH_HIT_SLOP } from "./spacing.js";
-export type { SpacingToken } from "./spacing.js";
+export { spacing, MIN_TOUCH_TARGET, TOUCH_HIT_SLOP } from "./spacing";
+export type { SpacingToken } from "./spacing";
 
-export { radii } from "./radii.js";
-export type { RadiusToken } from "./radii.js";
+export { radii } from "./radii";
+export type { RadiusToken } from "./radii";
 
-export { elevation } from "./elevation.js";
-export type { ElevationToken } from "./elevation.js";
+export { elevation } from "./elevation";
+export type { ElevationToken } from "./elevation";
 
-export { motion, REDUCED_MOTION_DURATION, TARGET_FRAME_MS } from "./motion.js";
-export type { MotionToken } from "./motion.js";
+export { motion, REDUCED_MOTION_DURATION, TARGET_FRAME_MS } from "./motion";
+export type { MotionToken } from "./motion";
 
 export {
   contrastRatio,
@@ -62,4 +69,4 @@ export {
   lightness,
   WCAG_AA_NORMAL,
   WCAG_AA_LARGE,
-} from "./contrast.js";
+} from "./contrast";
